@@ -24,13 +24,16 @@ function alertGifName(){
 					var gifImage = $("<img>");
 					gifImage.attr("src", response.data[i].images.fixed_height.url)
 			
-					var gif = $("<div class='gif-wrapper'>" + gifImage + "</div>");
-					
+					var gif = $("<div class='gif-wrapper'>");
+					gif.append(gifImage) 
+					//var gif = $("#content" + gifImage);
+
 					var gifRating = $("<p>Rating: " + response.data[i].rating + "</p>");
 					
 					$("#content").prepend(gif);
 					$(gif).prepend(gifImage)
 					$(gif).prepend(gifRating);
+					console.log(gif);
 
 				}
 
