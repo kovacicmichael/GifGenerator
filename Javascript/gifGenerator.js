@@ -5,35 +5,39 @@ var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=4rflNs59030SuauN0Dt
 
 
 function alertGifName(){
-	console.log(this);
+	//console.log(this);
 
 	var gifName = $(this).attr("data-name");
 	var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=4rflNs59030SuauN0DtLlygAYaj36Q6J&q=" + gifName + "&limit=15&offset=0&rating=PG&lang=en";
 
-	//alert(gifName);
 
 	$.ajax({
 			url: queryURL,
 			method: "GET"
 		}).then(function(response){
 
+			console.log(response);
+
 			for(var i = 0; i < response.data.length; i++){
 
 				if(response.data[i].rating !== "r" && response.data[i].rating !== "pg-13"){
 
 					var gifImage = $("<img>");
-					gifImage.attr("src", response.data[i].images.fixed_height.url)
+					gifImage.attr("src", response.data[i].images.fixed_height.url);
+					gifImage.attr("class", "images");
+					gifImage.attr("data-still", response.data[i].images.fixed_height_still.url);
+					gifImage.attr("data-animate", response.data[i].images.fixed_height.url);
+					gifImage.attr("data-state", "still");
 			
 					var gif = $("<div class='gif-wrapper'>");
-					gif.append(gifImage) 
-					//var gif = $("#content" + gifImage);
+					gif.append(gifImage);
 
 					var gifRating = $("<p>Rating: " + response.data[i].rating + "</p>");
 					
 					$("#content").prepend(gif);
-					$(gif).prepend(gifImage)
+					$(gif).prepend(gifImage);
 					$(gif).prepend(gifRating);
-					console.log(gif);
+					//console.log(gif);
 
 				}
 
@@ -45,7 +49,7 @@ function alertGifName(){
 			// });
 			
 			//$(".content").text(response);
-			console.log(response);
+			//console.log(response);
 		});
 		
 
@@ -73,6 +77,7 @@ function renderButtons(){
 			$("#buttons-location").append(gif);
 
 
+
 		};
 
 };
@@ -87,6 +92,31 @@ $("#add-gif").on("click", function(event){
 		renderButtons();
 
 	});
+
+$(".images").on("click", function(event){
+	event.preventDefault();
+
+	//console.log(this);
+
+
+	var state = "still";
+
+	// if(state == "still"){
+	// 	//reset image source to animated version
+	// 	$(this).
+	// 	//change state to animated
+
+
+
+	// } else{
+	// 	//it is already animated, turn to still
+	// 	//reset image source to still version
+	// 	//change state to still
+
+	// };
+
+
+})
 
 
 renderButtons();
